@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router'; // reads route params
 
 import { MessageService } from '../messages/message.service';
 
@@ -9,14 +10,28 @@ import { ProductService } from './product.service';
     templateUrl: './app/products/product-edit.component.html',
     styleUrls: ['./app/products/product-edit.component.css']
 })
-export class ProductEditComponent {
+export class ProductEditComponent implements OnInit {
     pageTitle: string = 'Product Edit';
     errorMessage: string;
 
     product: IProduct;
 
     constructor(private productService: ProductService,
-                private messageService: MessageService) { }
+                private messageService: MessageService,
+            private route: ActivatedRoute,
+        private router: Router) { 
+                console.log(this.route.snapshot.params['id']);
+            }
+
+    ngOnInit(): void {
+        // subscribe rather than snapshot to two way bind getProduct.
+        this.route.params.subscribe(
+            p => {
+                let id = +p['id'];
+                this.getProduct(id);
+            }
+        );
+    }
 
     getProduct(id: number): void {
         this.productService.getProduct(id)
@@ -69,5 +84,6 @@ export class ProductEditComponent {
         }
 
         // Navigate back to the product list
+        this.router.navigate(['\products']);
     }
 }
