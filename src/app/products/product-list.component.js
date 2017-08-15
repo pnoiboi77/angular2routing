@@ -24,11 +24,9 @@ var ProductListComponent = (function () {
         this.showImage = !this.showImage;
     };
     ProductListComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.listFilter = this.route.snapshot.queryParams['filterBy'] || '';
         this.showImage = this.route.snapshot.queryParams['showImage'] === 'true';
-        this.productService.getProducts()
-            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
+        this.products = this.route.snapshot.data['products'];
     };
     return ProductListComponent;
 }());

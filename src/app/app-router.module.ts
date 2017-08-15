@@ -23,7 +23,8 @@ import { PageNotFoundComponent } from './page-not-found.component';
         { path: 'welcome', redirectTo: 'hone', pathMath: 'full' },
         { path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: '**', component: PageNotFoundComponent }*/
-        ]/*, { useHash: true } // hash based routing */)
+        ]/*, { useHash: true } // hash based routing */
+        , { enableTracing: true })
     ],
     declarations: [
         WelcomeComponent,

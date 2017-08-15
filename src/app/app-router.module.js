@@ -27,7 +27,7 @@ AppRouterModule = __decorate([
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
                 { path: '**', component: page_not_found_component_1.PageNotFoundComponent }
-            ] /*, { useHash: true } // hash based routing */)
+            ] /*, { useHash: true } // hash based routing */, { enableTracing: true })
         ],
         declarations: [
             welcome_component_1.WelcomeComponent,

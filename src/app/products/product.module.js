@@ -14,6 +14,7 @@ var product_edit_info_component_1 = require("./product-edit-info.component");
 var product_edit_tags_component_1 = require("./product-edit-tags.component");
 var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_service_1 = require("./product.service");
+var product_list_resolver_service_1 = require("./product-list-resolver.service");
 var product_resolver_service_1 = require("./product-resolver.service");
 var shared_module_1 = require("../shared/shared.module");
 var ProductModule = (function () {
@@ -29,7 +30,10 @@ ProductModule = __decorate([
                 { path: 'products',
                     children: [
                         { path: '',
-                            component: product_list_component_1.ProductListComponent },
+                            component: product_list_component_1.ProductListComponent,
+                            resolve: {
+                                products: product_list_resolver_service_1.ProductListResolver
+                            } },
                         { path: ':id',
                             component: product_detail_component_1.ProductDetailComponent,
                             resolve: {
@@ -63,6 +67,7 @@ ProductModule = __decorate([
         providers: [
             product_service_1.ProductService,
             product_resolver_service_1.ProductResolver,
+            product_list_resolver_service_1.ProductListResolver,
             {
                 provide: 'productResolverInline',
                 useValue: function () {

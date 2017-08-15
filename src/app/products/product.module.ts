@@ -9,6 +9,7 @@ import { ProductEditTagsComponent } from './product-edit-tags.component';
 
 import { ProductFilterPipe } from './product-filter.pipe';
 import { ProductService } from './product.service';
+import { ProductListResolver } from './product-list-resolver.service';
 import { ProductResolver } from './product-resolver.service';
 
 import { SharedModule } from '../shared/shared.module';
@@ -20,7 +21,10 @@ import { SharedModule } from '../shared/shared.module';
       { path: 'products', 
         children: [
           { path: '',
-            component: ProductListComponent },
+            component: ProductListComponent,
+            resolve: {
+              products: ProductListResolver
+            } },
           { path: ':id',
             component: ProductDetailComponent,
             resolve: {
@@ -53,6 +57,7 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     ProductService,
     ProductResolver,
+    ProductListResolver,
     {
       provide: 'productResolverInline',
       useValue: () => {
