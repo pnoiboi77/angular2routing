@@ -19,20 +19,19 @@ var ProductEditComponent = (function () {
         this.route = route;
         this.router = router;
         this.pageTitle = 'Product Edit';
-        console.log(this.route.snapshot.params['id']);
     }
     ProductEditComponent.prototype.ngOnInit = function () {
-        var _this = this;
         // subscribe rather than snapshot to two way bind getProduct.
-        this.route.params.subscribe(function (p) {
-            var id = +p['id'];
-            _this.getProduct(id);
-        });
-    };
-    ProductEditComponent.prototype.getProduct = function (id) {
+        /*this.route.params.subscribe(
+            p => {
+                let id = +p['id'];
+                this.getProduct(id);
+            }
+        );*/
         var _this = this;
-        this.productService.getProduct(id)
-            .subscribe(function (product) { return _this.onProductRetrieved(product); }, function (error) { return _this.errorMessage = error; });
+        this.route.data.subscribe(function (d) {
+            _this.onProductRetrieved(d['product']);
+        });
     };
     ProductEditComponent.prototype.onProductRetrieved = function (product) {
         this.product = product;

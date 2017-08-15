@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'; // reads route params
 import { MessageService } from '../messages/message.service';
 
 import { IProduct } from './product';
+import { ProductResolver } from './product-resolver.service';
 import { ProductService } from './product.service';
 
 @Component({
@@ -19,26 +20,22 @@ export class ProductEditComponent implements OnInit {
     constructor(private productService: ProductService,
                 private messageService: MessageService,
             private route: ActivatedRoute,
-        private router: Router) { 
-                console.log(this.route.snapshot.params['id']);
-            }
+        private router: Router) { }
 
     ngOnInit(): void {
         // subscribe rather than snapshot to two way bind getProduct.
-        this.route.params.subscribe(
+        /*this.route.params.subscribe(
             p => {
                 let id = +p['id'];
                 this.getProduct(id);
             }
+        );*/
+        
+        this.route.data.subscribe(
+            d => {
+                this.onProductRetrieved(d['product']);
+            }
         );
-    }
-
-    getProduct(id: number): void {
-        this.productService.getProduct(id)
-            .subscribe(
-                (product: IProduct) => this.onProductRetrieved(product),
-                (error: any) => this.errorMessage = <any>error
-            );
     }
 
     onProductRetrieved(product: IProduct): void {
