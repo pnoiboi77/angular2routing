@@ -23,7 +23,8 @@ import { SharedModule } from '../shared/shared.module';
       { path: 'products/:id/edit',
         component: ProductEditComponent,
         resolve: {
-          product: ProductResolver } }
+          product: ProductResolver
+          /*product: 'productResolverInline'*/ } }
     ])
   ],
   declarations: [
@@ -34,7 +35,17 @@ import { SharedModule } from '../shared/shared.module';
   ],
   providers: [
     ProductService,
-    ProductResolver
+    ProductResolver,
+    {
+      provide: 'productResolverInline',
+      useValue: () => {
+        return {
+          id: 5, 
+          productName: 'Inline Hammer',
+          description: 'Test Description for inline hammer'
+        }
+      }
+    }
   ]
 })
 export class ProductModule {}

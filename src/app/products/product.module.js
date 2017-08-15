@@ -45,7 +45,17 @@ ProductModule = __decorate([
         ],
         providers: [
             product_service_1.ProductService,
-            product_resolver_service_1.ProductResolver
+            product_resolver_service_1.ProductResolver,
+            {
+                provide: 'productResolverInline',
+                useValue: function () {
+                    return {
+                        id: 5,
+                        productName: 'Inline Hammer',
+                        description: 'Test Description for inline hammer'
+                    };
+                }
+            }
         ]
     })
 ], ProductModule);
