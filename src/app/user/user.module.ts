@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 import { AuthService } from './auth.service';
+import { AuthGaurd } from './auth-gaurd.service';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     LoginComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGaurd
   ]
 })
 export class UserModule { }

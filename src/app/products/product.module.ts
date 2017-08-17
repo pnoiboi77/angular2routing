@@ -11,14 +11,18 @@ import { ProductFilterPipe } from './product-filter.pipe';
 import { ProductService } from './product.service';
 import { ProductListResolver } from './product-list-resolver.service';
 import { ProductResolver } from './product-resolver.service';
+import { ProductEditGaurd } from './product-gaurd.service';
 
 import { SharedModule } from '../shared/shared.module';
+
+import { AuthGaurd } from '../user/auth-gaurd.service';
 
 @NgModule({
   imports: [ // component less route
     SharedModule,
     RouterModule.forChild([
       { path: 'products', 
+        canActivate: [AuthGaurd],
         children: [
           { path: '',
             component: ProductListComponent,
@@ -31,6 +35,7 @@ import { SharedModule } from '../shared/shared.module';
               product: ProductResolver } },
           { path: ':id/edit',
             component: ProductEditComponent,
+            canDeactivate: [ProductEditGaurd],
             resolve: {
               product: ProductResolver
               /*product: 'productResolverInline'*/ },
@@ -58,6 +63,7 @@ import { SharedModule } from '../shared/shared.module';
     ProductService,
     ProductResolver,
     ProductListResolver,
+    ProductEditGaurd,
     {
       provide: 'productResolverInline',
       useValue: () => {

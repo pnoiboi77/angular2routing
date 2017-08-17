@@ -6,11 +6,12 @@ import { MessageService } from '../messages/message.service';
 @Injectable()
 export class AuthService {
     currentUser: IUser;
+    redirectUrl: string;
 
     constructor(private messageService: MessageService) { }
 
     isLoggedIn(): boolean {
-        return !!this.currentUser;
+        return !!this.currentUser; // coearse to boolean value
     }
 
     login(userName: string, password: string): void {

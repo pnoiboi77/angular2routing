@@ -15,7 +15,7 @@ var AuthService = (function () {
         this.messageService = messageService;
     }
     AuthService.prototype.isLoggedIn = function () {
-        return !!this.currentUser;
+        return !!this.currentUser; // coearse to boolean value
     };
     AuthService.prototype.login = function (userName, password) {
         if (!userName || !password) {

@@ -16,7 +16,9 @@ var product_filter_pipe_1 = require("./product-filter.pipe");
 var product_service_1 = require("./product.service");
 var product_list_resolver_service_1 = require("./product-list-resolver.service");
 var product_resolver_service_1 = require("./product-resolver.service");
+var product_gaurd_service_1 = require("./product-gaurd.service");
 var shared_module_1 = require("../shared/shared.module");
+var auth_gaurd_service_1 = require("../user/auth-gaurd.service");
 var ProductModule = (function () {
     function ProductModule() {
     }
@@ -28,6 +30,7 @@ ProductModule = __decorate([
             shared_module_1.SharedModule,
             router_1.RouterModule.forChild([
                 { path: 'products',
+                    canActivate: [auth_gaurd_service_1.AuthGaurd],
                     children: [
                         { path: '',
                             component: product_list_component_1.ProductListComponent,
@@ -41,6 +44,7 @@ ProductModule = __decorate([
                             } },
                         { path: ':id/edit',
                             component: product_edit_component_1.ProductEditComponent,
+                            canDeactivate: [product_gaurd_service_1.ProductEditGaurd],
                             resolve: {
                                 product: product_resolver_service_1.ProductResolver
                             },
@@ -68,6 +72,7 @@ ProductModule = __decorate([
             product_service_1.ProductService,
             product_resolver_service_1.ProductResolver,
             product_list_resolver_service_1.ProductListResolver,
+            product_gaurd_service_1.ProductEditGaurd,
             {
                 provide: 'productResolverInline',
                 useValue: function () {
