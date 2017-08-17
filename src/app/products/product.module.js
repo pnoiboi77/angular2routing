@@ -18,7 +18,6 @@ var product_list_resolver_service_1 = require("./product-list-resolver.service")
 var product_resolver_service_1 = require("./product-resolver.service");
 var product_gaurd_service_1 = require("./product-gaurd.service");
 var shared_module_1 = require("../shared/shared.module");
-var auth_gaurd_service_1 = require("../user/auth-gaurd.service");
 var ProductModule = (function () {
     function ProductModule() {
     }
@@ -29,35 +28,31 @@ ProductModule = __decorate([
         imports: [
             shared_module_1.SharedModule,
             router_1.RouterModule.forChild([
-                { path: 'products',
-                    canActivate: [auth_gaurd_service_1.AuthGaurd],
+                { path: '',
+                    component: product_list_component_1.ProductListComponent,
+                    resolve: {
+                        products: product_list_resolver_service_1.ProductListResolver
+                    } },
+                { path: ':id',
+                    component: product_detail_component_1.ProductDetailComponent,
+                    resolve: {
+                        product: product_resolver_service_1.ProductResolver
+                    } },
+                { path: ':id/edit',
+                    component: product_edit_component_1.ProductEditComponent,
+                    canDeactivate: [product_gaurd_service_1.ProductEditGaurd],
+                    resolve: {
+                        product: product_resolver_service_1.ProductResolver
+                    },
                     children: [
                         { path: '',
-                            component: product_list_component_1.ProductListComponent,
-                            resolve: {
-                                products: product_list_resolver_service_1.ProductListResolver
-                            } },
-                        { path: ':id',
-                            component: product_detail_component_1.ProductDetailComponent,
-                            resolve: {
-                                product: product_resolver_service_1.ProductResolver
-                            } },
-                        { path: ':id/edit',
-                            component: product_edit_component_1.ProductEditComponent,
-                            canDeactivate: [product_gaurd_service_1.ProductEditGaurd],
-                            resolve: {
-                                product: product_resolver_service_1.ProductResolver
-                            },
-                            children: [
-                                { path: '',
-                                    redirectTo: 'info',
-                                    pathMatch: 'full' },
-                                { path: 'info',
-                                    component: product_edit_info_component_1.ProductEditInfoComponent },
-                                { path: 'tags',
-                                    component: product_edit_tags_component_1.ProductEditTagsComponent }
-                            ] }
-                    ] },
+                            redirectTo: 'info',
+                            pathMatch: 'full' },
+                        { path: 'info',
+                            component: product_edit_info_component_1.ProductEditInfoComponent },
+                        { path: 'tags',
+                            component: product_edit_tags_component_1.ProductEditTagsComponent }
+                    ] }
             ])
         ],
         declarations: [

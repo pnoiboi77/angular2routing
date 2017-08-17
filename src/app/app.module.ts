@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 
 /* Feature Modules */
 import { AppRouterModule } from './app-router.module';
-import { ProductModule } from './products/product.module';
 import { UserModule } from './user/user.module';
 import { MessageModule } from './messages/message.module';
 
@@ -19,7 +18,6 @@ import { MessageModule } from './messages/message.module';
     BrowserModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(ProductData, { delay: 500 }),
-    ProductModule,
     UserModule,
     MessageModule,
     AppRouterModule, // must be declared last since routing is in external module

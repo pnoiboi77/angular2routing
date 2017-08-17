@@ -15,40 +15,35 @@ import { ProductEditGaurd } from './product-gaurd.service';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { AuthGaurd } from '../user/auth-gaurd.service';
 
 @NgModule({
   imports: [ // component less route
     SharedModule,
     RouterModule.forChild([
-      { path: 'products', 
-        canActivate: [AuthGaurd],
+      { path: '',
+        component: ProductListComponent,
+        resolve: {
+          products: ProductListResolver
+        } },
+      { path: ':id',
+        component: ProductDetailComponent,
+        resolve: {
+          product: ProductResolver } },
+      { path: ':id/edit',
+        component: ProductEditComponent,
+        canDeactivate: [ProductEditGaurd],
+        resolve: {
+          product: ProductResolver
+          /*product: 'productResolverInline'*/ },
         children: [
           { path: '',
-            component: ProductListComponent,
-            resolve: {
-              products: ProductListResolver
-            } },
-          { path: ':id',
-            component: ProductDetailComponent,
-            resolve: {
-              product: ProductResolver } },
-          { path: ':id/edit',
-            component: ProductEditComponent,
-            canDeactivate: [ProductEditGaurd],
-            resolve: {
-              product: ProductResolver
-              /*product: 'productResolverInline'*/ },
-            children: [
-              { path: '',
-                redirectTo: 'info',
-                pathMatch: 'full' },
-              { path: 'info',
-                  component: ProductEditInfoComponent },
-              { path: 'tags',
-                  component: ProductEditTagsComponent }
-            ] }
-        ] },
+            redirectTo: 'info',
+            pathMatch: 'full' },
+          { path: 'info',
+              component: ProductEditInfoComponent },
+          { path: 'tags',
+              component: ProductEditTagsComponent }
+        ] }
     ])
   ],
   declarations: [
