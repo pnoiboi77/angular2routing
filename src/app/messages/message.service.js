@@ -5,10 +5,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var MessageService = (function () {
-    function MessageService() {
+    function MessageService(route) {
+        this.route = route;
         this.messages = [];
+        this.isDisplayed = false;
+        console.log(this.route);
     }
     MessageService.prototype.addMessage = function (message) {
         var currentDate = new Date();
@@ -17,7 +24,8 @@ var MessageService = (function () {
     return MessageService;
 }());
 MessageService = __decorate([
-    core_1.Injectable()
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [router_1.ActivatedRoute])
 ], MessageService);
 exports.MessageService = MessageService;
 //# sourceMappingURL=message.service.js.map
